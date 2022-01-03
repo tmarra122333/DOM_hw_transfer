@@ -23,7 +23,8 @@ your 'js-gallery'.
 Hint: you can call .querySelector on a node you've already retrieved from the DOM.
 
 */
-
+const gallery = document.querySelector('.js-gallery');      //single object 
+const items = document.querySelectorAll('.js-gallery-item');    //array
 
 
 /*
@@ -43,6 +44,18 @@ equal to the width of a single slide.
 To get the width, try .getBoundingClientRect() or .offsetWidth.
 
 */
+let slideCount = items.length; 
+let slideWidth = items[0].getBoundingClientRect().width
+
+console.log(slideWidth);
+
+// let myWidths = [];
+// arr.forEach(function (item) {
+//   let getBound = item.getBoundingClientRect();
+//   myWidths.push(getBound.width)
+// })
+
+// console.log(myWidths);
 
 
 
@@ -65,9 +78,34 @@ calling setInterval() to a variable.
 Create a function called transitionSlide that, for now, just
 `console.log`'s 'Called!' ever 5000 miliseconds
 
-*/
+*/ 
+function transitionsSlide(){
+  let timer = setInterval(() => {
+    console.log('Called')
+  }, 5000);
+}
 
 
+
+
+
+
+
+
+let currentSlide = 1;
+transitionsSlide = function(){  //Re-defining a Declared function 
+  setInterval(function() { 
+        if (currentSlide < slideCount)  {
+  gallery.style.transform = `translateX(${-slideWidth*currentSlide}px)`; 
+  currentSlide++;
+  
+} else {
+  gallery.style.transform = 'translateX(0)';
+  currentSlide = 1;
+}
+},5000)
+}
+transitionsSlide()
 
 /*
 
@@ -90,4 +128,6 @@ Inside transitionSlide() we need to do two things:
 
 Hint: delta should always be a negative number
 
+
 */
+
